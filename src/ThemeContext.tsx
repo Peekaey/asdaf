@@ -1,19 +1,17 @@
-import {createContext, useContext, useState} from "react";
+import React, {createContext, useContext, useState} from "react";
 
 
 type ThemeContextType = {
-    theme: "Light" | "Dark"
+    Theme: "Light" | "Dark"
     ToggleTheme: () => void; // Toggles the theme
 }
 
-// Create the context
 
-const ThemeContext = createContext<ThemeContextType | undefined>
-(undefined);
+
+const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 // ThemeProvider component to manage and provide theme state
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-    // const [theme, setTheme] = useState<ThemeContextType["theme"]>("Dark");
 
     const [theme, setTheme] = useState<"Light" | "Dark">("Light"); // Default is light theme
 
@@ -23,17 +21,13 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
         // Dynamically update the <body> class based on the theme
         if (theme === "Dark") {
-            document.body.style.backgroundColor = "#242424";   // Add dark mode class
+            document.documentElement.style.backgroundColor = "#242424";
         } else {
-            document.body.style.backgroundColor = "white";   // Add dark mode class
-
+            document.documentElement.style.backgroundColor = "white";
         }
-
-        console.log("Theme changed to: ", theme);
     };
-
     return (
-        <ThemeContext.Provider value={{ theme, ToggleTheme }}>
+        <ThemeContext.Provider value={{ Theme: theme, ToggleTheme }}>
             {children}
         </ThemeContext.Provider>
     );

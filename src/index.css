@@ -2,19 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+html {
 
-  color-scheme: light dark;
+}
+
+body {
+  height: 100vh;
+}
+
+:root {
   color: rgba(255, 255, 255, 0.87);
   background-color: #242424;
-
+  font-family: Cascadia Code, monospace;
+  line-height: 1.5;
+  font-weight: 400;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  justify-items: center;
+  text-align: center;
 }
 
 a {
@@ -22,16 +29,9 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
 }
 
 h1 {
@@ -70,3 +70,58 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+/* Modal.css */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6); /*alpha for transparency */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(5px); /* Adds a slight blur effect for a translucent look */
+}
+
+.modal-content {
+  padding: 20px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  font-size: 24px;
+}
+
+.loading {
+
+}
+
+.loading:after {
+  content: "...";
+  overflow: hidden;
+  animation: ellipsis-dot 3s infinite .9s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes ellipsis-dot {
+  25% {
+    content: "";
+  }
+  50% {
+    content: ".";
+  }
+  75% {
+    content: "..";
+  }
+  100% {
+    content: "...";
+  }
+}
+

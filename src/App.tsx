@@ -1,41 +1,73 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import {useEffect, useState} from 'react'
 import './App.css'
-import BrushIcon from "./components/ThemeIcon.tsx";
 import './index.css'
-import Banner from "./components/Banner.tsx";
+import BannerComponent from "./components/BannerComponent.tsx";
+import LanyardComponent from "./components/Lanyard/LanyardComponent.tsx";
+import SocialsGridComponent from "./components/GridStack/SocialsGridComponent.tsx";
+import Modal from "./components/ModalPopup.tsx";
+import {FetchLanyard} from "./utilities.ts"
+import {Lanyard} from "./Types/Lanyard.ts";
+import Reason from "./assets/site/reason.png"
+import LiveTimerComponent from "./components/LiveTimerComponent.tsx";
+import LanguagesGridComponent from "./components/GridStack/LanguagesGridComponent.tsx";
+import FrameworksGridComponent from "./components/GridStack/FrameworksGridComponent.tsx";
+import {useTheme} from "./ThemeContext.tsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [currentModalUrl, setCurrentModalUrl] = useState<string | null>(null);
+    const [lanyardData, setLanyardData] = useState<Lanyard | null>(null);
+    const [loading, setLoading] = useState<boolean>(true);
+    const {Theme} = useTheme();
+
+    const openModal = (url: string) => {
+        setCurrentModalUrl(url);
+        setModalVisible(true);
+    };
+    const closeModal = () => setModalVisible(false);
+
+    useEffect(() => {
+        const fetchLanyardData = async () => {
+            try {
+              const lanyardData = await FetchLanyard();
+                setLanyardData(lanyardData);
+            } catch (err: any) {
+
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchLanyardData();
+    }, []);
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
 
   return (
-    <>
-        <div >
-            {Banner()}
-            <a href="https://vite.dev" target="_blank">
-                <img src={viteLogo} className="logo" alt="Vite logo"/>
-            </a>
-            <a href="https://discord.com/users/181661376584876032"><img
-                src="https://lanyard.cnrad.dev/api/181661376584876032"/></a>
-            <a href="https://react.dev" target="_blank">
-                <img src={reactLogo} className="logo react" alt="React logo"/>
-            </a>
-
-        </div>
-        <h1>Vite + React</h1>
-        <div className="card">
-            <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+      <>
+          <div className="flex justify-center items-center flex-col h-full ">
+              <LiveTimerComponent/>
+              <div style={{maxWidth: "70%"}} className=" mt-10">
+                  <BannerComponent/>
+              </div>
+              <div className="">
+                  <button style={{color: Theme === "Dark" ? "#242424" : "inherit", background: Theme === "Dark" ? "inherit" : "inherit" }} className="mt-10 w-50"
+                          onClick={() => openModal(Reason)}>
+                      [ Full time shitter ツ ]
+                  </button>
+              </div>
+              <LanyardComponent lanyardData={lanyardData}/>
+              <LanguagesGridComponent/>
+              <FrameworksGridComponent/>
+              <Modal
+                  isVisible={isModalVisible}
+                  onClose={closeModal}
+                  imageUrl={currentModalUrl || ""}
+              />
+              <SocialsGridComponent/>
+          </div>
+      </>
   )
 }
 
