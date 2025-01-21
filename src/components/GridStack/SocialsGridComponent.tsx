@@ -6,7 +6,7 @@ const SocialsGridComponent = () => {
 
     return (
         <div>
-            <h3 style={{paddingTop: "2em"}} className={`${Theme === "Dark" ? "text-black" : "text-white"}`}>Links: </h3>
+            <h3 style={{paddingTop: "2em"}} className={`${Theme === "Dark" ? "text-black" : "text-white"}`}>Links </h3>
             <div
                 className={`inline-flex justify-center items-center rounded-b-2xl rounded-t-2xl  p-2 ${Theme === "Dark" ? "border-black" : "border-white"} space-x-2`}>
                 <a href="https://discord.com/users/181661376584876032">
