@@ -50,9 +50,9 @@ const FrameworksGridComponent = () => {
                 <a href="https://reactnative.dev/">
                     <TbBrandReactNative className={`h-10 w-10 ${Theme === "Dark" ? "text-black" : "text-white"}`}/>
                 </a>
-                <a href="https://tailwindcss.com/">
-                    <RiTailwindCssFill className={`h-10 w-10 ${Theme === "Dark" ? "text-black" : "text-white"}`}/>
-                </a>
+                {/*<a href="https://tailwindcss.com/">*/}
+                {/*    <RiTailwindCssFill className={`h-10 w-10 ${Theme === "Dark" ? "text-black" : "text-white"}`}/>*/}
+                {/*</a>*/}
 
             </div>
         </div>
